@@ -1,0 +1,18 @@
+RelojFix: proyecto nuevo e independiente (paquete com.relojfix).
+No toca com.xiaomi.miwear.mishow ni ningun otro paquete.
+Unica tarea: mantener persist.switch_mishow_oob_mode en "0".
+
+Pasos:
+1. Crea un repositorio NUEVO en GitHub (ej. "relojfix"), Public, sin README.
+2. Sube todo el contenido de esta carpeta con "uploading an existing file".
+3. La carpeta .github no se sube arrastrando; creala a mano:
+   Add file > Create new file > nombre ".github/workflows/build.yml"
+   y pega el contenido de ese archivo (sin lineas en blanco al inicio).
+4. Ve a la pestana Actions, espera el check verde, descarga "relojfix-apk".
+5. Instala:
+   adb install app-debug.apk
+   adb shell pm grant com.relojfix android.permission.WRITE_SECURE_SETTINGS
+   adb shell am start -n com.relojfix/.MainActivity
+6. Comprueba:
+   logcat -d | grep -i RelojFix
+   settings get global persist.switch_mishow_oob_mode   (debe dar 0)
